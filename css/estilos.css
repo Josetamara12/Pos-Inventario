@@ -1,0 +1,43 @@
+/* Sidebar styles */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar {
+    height: 100vh; /* Full viewport height */
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+}
+
+.sidebar .nav-link {
+    color: #ffffff;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #495057;
+}
+
+.sidebar .nav-item {
+    margin-bottom: 1rem;
+}
+
+.sidebar .nav-link i {
+    margin-right: 10px;
+}
+
+/* Main content styles */
+.content {
+    margin-left: 250px; /* Same as sidebar width */
+    padding: 20px;
+}
