@@ -24,8 +24,8 @@ if (isset($_POST['register'])) {
     $sql = "INSERT INTO usuarios (nombre, apellido, contacto, password, fecha_nacimiento, genero) VALUES ('$nombre', '$apellido', '$contacto', '$password', '$fecha_nacimiento', '$genero')";
 
     if ($conn->query($sql) === TRUE) {
-        // Redirige automáticamente a la página de inicio de sesión después de un registro exitoso
-        header('Location: login.php');
+        // Redirige automáticamente a la página de inicio de sesión con un mensaje de éxito
+        header('Location: login.php?registro=exitoso');
         exit();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

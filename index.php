@@ -89,7 +89,7 @@ if (!in_array($page, $validPages)) {
         <div class="content flex-grow-1 p-4">
                     <!-- Header -->
                     <header class="bg-primary text-white text-center py-3 mb-4">
-                        <h1>Bienvenido a la Dashboard</h1>
+                        <h1>Menu de Incio</h1>
                     </header>
 
                     <div class="container">
