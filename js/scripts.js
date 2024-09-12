@@ -62,3 +62,22 @@ function addItem() {
             container.removeChild(button.parentElement);
         }
  
+
+    // script para registrar las compras 
+        function addItem() {
+            const container = document.getElementById('itemsContainer');
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'input-group mb-2';
+            itemDiv.innerHTML = `
+                <input type="text" class="form-control" placeholder="Nombre del Artículo" aria-label="Nombre del Artículo">
+                <input type="number" class="form-control" placeholder="Cantidad" aria-label="Cantidad">
+                <input type="number" class="form-control" placeholder="Precio Unitario" aria-label="Precio Unitario">
+                <button class="btn btn-outline-secondary" type="button" onclick="removeItem(this)">Eliminar</button>
+            `;
+            container.appendChild(itemDiv);
+        }
+
+        function removeItem(button) {
+            button.parentElement.remove();
+        }
+    

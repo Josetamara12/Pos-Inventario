@@ -9,35 +9,49 @@ body {
     flex-direction: column;
 }
 
+/* Hacer que el sidebar ocupe el 100% del alto de la pantalla y esté fijo */
 .sidebar {
-    height: 100vh; /* Full viewport height */
-    width: 250px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #343a40;
-    color: white;
-    padding: 20px;
+    height: 100vh; /* Altura completa de la ventana de visualización */
+    position: fixed; /* Fijar el sidebar para que no se desplace */
+    top: 0; /* Alineación en la parte superior */
+    left: 0; /* Alineación a la izquierda */
+    width: 250px; /* Ancho fijo para el sidebar */
+    z-index: 100; /* Asegurarse de que el sidebar esté encima del contenido */
 }
 
-.sidebar .nav-link {
-    color: #ffffff;
-}
-
-.sidebar .nav-link:hover {
-    background-color: #495057;
-}
-
-.sidebar .nav-item {
-    margin-bottom: 1rem;
-}
-
-.sidebar .nav-link i {
-    margin-right: 10px;
-}
-
-/* Main content styles */
+/* Ajustar el contenido principal para que no se superponga al sidebar */
 .content {
-    margin-left: 250px; /* Same as sidebar width */
-    padding: 20px;
+    margin-left: 250px; /* Ajustar según el ancho del sidebar */
+    flex-grow: 1; /* Permitir que el contenido crezca en el espacio disponible */
+    padding: 20px; /* Espaciado alrededor del contenido */
 }
+ 
+
+/*estilos para el formulario de compras */
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .input-group .btn-outline-secondary {
+            border-color: #ced4da;
+        }
+        .input-group .btn-outline-secondary:hover {
+            background-color: #e9ecef;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+        .btn-primary:focus, .btn-primary:active {
+            box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+        }
+    

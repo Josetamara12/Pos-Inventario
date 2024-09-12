@@ -22,7 +22,7 @@ if (!in_array($page, $validPages)) {
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    
+    <link rel="stylesheet" href="css/estilos.css"> <!-- Enlace al CSS personalizado -->
 </head>
 
 <body>
@@ -82,41 +82,34 @@ if (!in_array($page, $validPages)) {
                 </li>
             </ul>
             <hr>
-
         </div>
 
         <!-- Main Content -->
         <div class="content flex-grow-1 p-4">
-                    <!-- Header -->
-                    <header class="bg-primary text-white text-center py-3 mb-4">
-                        <h1>Menu de Incio</h1>
-                    </header>
+            <!-- Header -->
+            <header class="bg-primary text-white text-center py-3 mb-4">
+                <h1>Menu de Incio</h1>
+            </header>
 
-                    <div class="container">
-                        <?php
-                        // Incluye los contenidos de las paginas.
-                        if ($page === 'home') {
-                            echo '<div class="alert alert-info" role="alert">
-                                    Estás dentro del sistema de inventarios. Utiliza el menú de navegación para acceder a las diferentes secciones.
-                                </div>';
-                        } else {
-                            include "modules/{$page}.php";
-                        }
-                        ?>
-                    </div>
-                </div>
-                
-
-
+            <div class="container">
+                <?php
+                // Incluye los contenidos de las paginas.
+                if ($page === 'home') {
+                    echo '<div class="alert alert-info" role="alert">
+                            Estás dentro del sistema de inventarios. Utiliza el menú de navegación para acceder a las diferentes secciones.
+                        </div>';
+                } else {
+                    include "modules/{$page}.php";
+                }
+                ?>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Footer -->
-    <footer class="bg-light text-center py-3 mt-auto">
-        <p class="mb-0">&copy; <?php echo date("Y"); ?> Sistema de Inventarios. Todos los derechos reservados.</p>
-    </footer>
+    
 </body>
 
 </html>
