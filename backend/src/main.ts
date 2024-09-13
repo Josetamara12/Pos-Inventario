@@ -1,11 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConnectionDB } from './services/connectDB.service';
+import * as bodyParser from 'body-parser';
 
 async function bootstrap() {
+  await new ConnectionDB();
   const app = await NestFactory.create(AppModule);
-  const connection = new ConnectionDB();
-  connection.connectMysql();
+  app.use(bodyParser.json())
+  
   await app.listen(3000);
 }
 bootstrap();
