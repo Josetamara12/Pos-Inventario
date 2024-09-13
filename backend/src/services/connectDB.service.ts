@@ -1,22 +1,25 @@
 import { Injectable } from "@nestjs/common";
-import mysql from "mysql2/promise"
+import * as mysql from "mysql2/promise"
 
 
 @Injectable()
-export class ConnectionDB{
+export class ConnectionDB {
     public connect: mysql.Pool;
 
-    async connectMysql(){
-        this.connect = await mysql.createPool({
-            user: "uqctyfrcyircvdoy",
-            password: "1ewvuWBoGA14d2WNlbfj",
-            port: 3306,
-            database: "bcfxa9izmbe68thefrqb",
-            host: "bcfxa9izmbe68thefrqb-mysql.services.clever-cloud.com"
-        })
-
-        this.connect.on("connection", ()=>{
+    constructor() {
+        try {
+            this.connect = mysql.createPool({
+                user: process.env.DB_USER,
+                password: process.env.DB_PASSWORD,
+                port: parseInt(process.env.DB_PORT!),
+                database: process.env.DB_DATABASE,
+                host: process.env.DB_HOST
+            })
             console.log("Connect with db");
-        })
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
+
 }
