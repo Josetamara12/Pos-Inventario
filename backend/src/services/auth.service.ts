@@ -13,10 +13,10 @@ export class AuthService extends ConnectionDB {
                 INSERT INTO usuarios(nombre, apellido, contacto, password, fecha_nacimiento, genero) 
                 VALUES("${name}", "${apellido}", "${contacto}", "${password}", "${fecha_nacimiento}", "${genero}")`);
 
-            return { msg: "User created", status: 200 }
+            return {msg: "User created", status: 200}
         }
-        catch (err) {
-            return { msg: err, status: 500 }
+        catch(err){
+            return {msg: err, status: 500}
         }
     }
     async loginuser(user: string, password: string) {
