@@ -9,6 +9,6 @@ async function bootstrap() {
   await new ConnectionDB();
   const app = await NestFactory.create(AppModule);
   app.use(bodyParser.json())
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();
