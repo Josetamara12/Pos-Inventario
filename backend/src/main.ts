@@ -5,10 +5,10 @@ import * as bodyParser from 'body-parser';
 import * as dotenv from "dotenv"
 
 async function bootstrap() {
+  dotenv.config()
   await new ConnectionDB();
   const app = await NestFactory.create(AppModule);
   app.use(bodyParser.json())
-  app.use(dotenv.config())
   await app.listen(3000);
 }
 bootstrap();
