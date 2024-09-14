@@ -4,7 +4,7 @@
     { "src": "dist/main.js", "use": "@vercel/node" } 
   ], 
   "routes": [ 
-    { "src": "/(.*)", "dest": "dist/main.js" } 
+    { "src": "/(.*)", "dest": "dist/main.js", "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"] } 
   ], 
   "build": { 
     "env": { 
