@@ -9,11 +9,11 @@ export class ConnectionDB {
     constructor() {
         try {
             this.connect = mysql.createPool({
-                user: "uqctyfrcyircvdoy",
-                password: "1ewvuWBoGA14d2WNlbfj",
-                port: 3306,
-                database: "bcfxa9izmbe68thefrqb",
-                host: "bcfxa9izmbe68thefrqb-mysql.services.clever-cloud.com"
+                user: process.env.DB_USER,
+                password: process.env.DB_PASSWORD,
+                port: parseInt(process.env.DB_PORT!),
+                database: process.env.DB_DATABASE,
+                host: process.env.DB_HOST
             })
             console.log("Connect with db");
         }
