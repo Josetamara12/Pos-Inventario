@@ -7,11 +7,11 @@ export class AuthService extends ConnectionDB {
     constructor() {
         super();
     }
-    createUser(name: string, apellido: string, contacto: string, password: string, fecha_nacimiento: string, genero: string) {
+    createUser(name: string, apellido: string, correo: string, contacto: string, password: string, fecha_nacimiento: string, genero: string) {
         try {
             this.connect.query(`
-                INSERT INTO usuarios(nombre, apellido, contacto, password, fecha_nacimiento, genero) 
-                VALUES("${name}", "${apellido}", "${contacto}", "${password}", "${fecha_nacimiento}", "${genero}")`);
+                INSERT INTO usuarios(nombre, correo, apellido, contacto, password, fecha_nacimiento, genero) 
+                VALUES("${name}", "${apellido}", "${correo}", "${contacto}", "${password}", "${fecha_nacimiento}", "${genero}")`);
 
             return {msg: "User created", status: HttpStatus.CREATED}
         }
