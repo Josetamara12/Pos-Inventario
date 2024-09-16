@@ -19,11 +19,11 @@ export class ProviderService extends ConnectionDB{
         } 
     }
 
-    async registerProvider(name: string, contact: string, email: string){
+    async registerProvider(name: string, contact: string, email: string, city: string){
         try{
             await this.connect.query(`
-                INSERT INTO proveedores(nombre, contacto, telefono, email) 
-                VALUES("${name}", "${contact}", "${contact}", "${email}")`);
+                INSERT INTO proveedores(nombre, contacto, telefono, email, ciudad) 
+                VALUES("${name}", "${contact}", "${contact}", "${email}", "${city}")`);
 
                 return {msg: "provider created", code: HttpStatus.CREATED}
         }

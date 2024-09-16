@@ -16,15 +16,15 @@ export class ProviderControler{
     @Post("/api/providers")
     @Bind(Request(), Response())
     async createProvider(req: express.Request, res: express.Response){
-        const {name, contact, email} = req.body;
+        const {name, contact, email, city} = req.body;
         
-        if (!name || !contact || !email) {
+        if (!name || !contact || !email || !city) {
             return res.status(HttpStatus.BAD_REQUEST).json({
                 error: "Missing required fields: name, contact, and email"
             });
         }
 
-        const {msg, code} = await this.provider.registerProvider(name, contact, email);
+        const {msg, code} = await this.provider.registerProvider(name, contact, email, city);
         res.status(code).json(msg);
     }
 }
