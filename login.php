@@ -20,7 +20,21 @@
                 <div class="card shadow-lg">
                     <div class="card-body">
                         <!-- Título del formulario -->
-                        <h3 class="text-center mb-4">Iniciar Sesion</h3>
+                        <h3 class="text-center mb-4">Iniciar Sesión</h3>
+                        
+                        <!-- Mostrar mensajes de error o éxito -->
+                        <?php if (isset($_GET['error'])): ?>
+                            <div class="alert alert-danger">
+                                <?php
+                                if ($_GET['error'] == 'login') {
+                                    echo "Nombre de usuario o contraseña incorrectos.";
+                                } elseif ($_GET['error'] == 'registro') {
+                                    echo "Registro exitoso. Ahora puedes iniciar sesión.";
+                                }
+                                ?>
+                            </div>
+                        <?php endif; ?>
+                        
                         <!-- Formulario que envía los datos a auth.php mediante el método POST -->
                         <form action="auth.php" method="POST">
                             <!-- Campo de entrada para el nombre de usuario -->

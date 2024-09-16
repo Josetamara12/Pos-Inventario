@@ -124,3 +124,6 @@ function addItem() {
             const container = document.getElementById('itemsContainer');
             container.removeChild(button.parentElement);
         }
+
+
+        

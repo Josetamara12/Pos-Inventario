@@ -9,7 +9,6 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Link al CSS personalizado -->
     <link href="css/estilos.css" rel="stylesheet">
-    
 </head>
 
 <body>
@@ -23,6 +22,14 @@
                         <!-- Título del formulario -->
                         <h2 class="text-center mb-4">Registrarte</h2>
                         <h5 class="text-left mb-4">Es rápido y fácil.</h5>
+                        
+                        <!-- Mostrar mensajes de error o éxito -->
+                        <?php if (isset($_GET['registro']) && $_GET['registro'] == 'exitoso'): ?>
+                            <div class="alert alert-success">
+                                Registro exitoso. Ahora puedes <a href="login.php">iniciar sesión</a>.
+                            </div>
+                        <?php endif; ?>
+                        
                         <!-- Formulario que envía los datos a auth.php mediante el método POST -->
                         <form id="registerForm" action="auth.php" method="POST">
                             <!-- Campo de entrada para el nombre -->
@@ -35,7 +42,10 @@
                             </div>
                             <!-- Campo de entrada para el número de móvil o correo electrónico -->
                             <div class="mb-3">
-                                <input type="text" class="form-control" id="contacto" name="contacto" placeholder="Número de móvil o correo electrónico" required>
+                                <input type="text" class="form-control" id="contacto" name="contacto" placeholder="Número de móvil" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="correo" name="correo" placeholder="Correo electrónico" required>
                             </div>
                             <!-- Campo de entrada para la nueva contraseña -->
                             <div class="mb-3">
@@ -54,6 +64,8 @@
                                     <option value="otro">Otro</option>
                                 </select>
                             </div>
+                            <!-- Campo oculto para CSRF Token (si decides implementarlo) -->
+                            <!-- <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>"> -->
                             <!-- Botón para enviar el formulario -->
                             <button type="submit" class="btn btn-primary w-100" name="register">Registrarte</button>
                         </form>
