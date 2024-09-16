@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpStatus, Injectable } from "@nestjs/common";
 import { ConnectionDB } from "./connectDB.service";
 import * as bycript from "bcrypt"
 
@@ -13,7 +13,7 @@ export class AuthService extends ConnectionDB {
                 INSERT INTO usuarios(nombre, apellido, contacto, password, fecha_nacimiento, genero) 
                 VALUES("${name}", "${apellido}", "${contacto}", "${password}", "${fecha_nacimiento}", "${genero}")`);
 
-            return {msg: "User created", status: 200}
+            return {msg: "User created", status: HttpStatus.CREATED}
         }
         catch(err){
             return {msg: err, status: 500}

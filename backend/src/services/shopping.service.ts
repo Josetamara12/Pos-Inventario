@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpStatus, Injectable } from "@nestjs/common";
 import { ConnectionDB } from "./connectDB.service";
 
 
@@ -24,7 +24,7 @@ export class ShoppingService extends ConnectionDB {
             await this.connect.query(`
                 INSERT INTO compras(proveedor, fecha_compra, nombre_articulo, cantidad, precio_unitario, monto_total)
                 VALUES("${proveedor}", "${fecha_compra}", "${nombre_articulo}", ${cantidad}, ${precio_unitario}, ${monto_total})`)
-            return { msg: "Shopping created", code: 200 }
+            return { msg: "Shopping created", code: HttpStatus.CREATED }
         }
         catch (err) {
             return { msg: err, code: 500 }
