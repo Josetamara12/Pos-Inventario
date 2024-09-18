@@ -1,8 +1,9 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$db_name = 'inventario';
+$host = 'bcfxa9izmbe68thefrqb-mysql.services.clever-cloud.com';
+$user = 'uqctyfrcyircvdoy';
+$pass = '1ewvuWBoGA14d2WNlbfj';
+$port = '3306';
+$db_name = 'bcfxa9izmbe68thefrqb';
 
 $conn = new mysqli($host, $user, $pass, $db_name);
 
