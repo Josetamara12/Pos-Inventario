@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Link al CSS personalizado -->
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/estilos.css" rel="stylesheet">
 </head>
 
 <body>

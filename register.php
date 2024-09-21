@@ -8,9 +8,8 @@
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Link al CSS personalizado -->
-    <link href="css/styles.css" rel="stylesheet">
-    <!-- Link al archivo JavaScript externo -->
-    <script src="js/scripts.js" defer></script>
+    <link href="css/estilos.css" rel="stylesheet">
+    
 </head>
 
 <body>
