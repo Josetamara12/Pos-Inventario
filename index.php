@@ -1,11 +1,15 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['id_usuario'])) {
     header("Location: login.php");
     exit();
 }
 
+<<<<<<< HEAD
 // Determine which page to include
+=======
+// Determine las paginas
+>>>>>>> 4f904dd39a07f5fff8372923ce40ccfdb613c314
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 $validPages = ['compras', 'ordenes_recibidas', 'devoluciones', 'stocks', 'ventas', 'proveedores', 'productos', 'usuarios', 'configuracion'];
 if (!in_array($page, $validPages)) {
@@ -31,7 +35,11 @@ if (!in_array($page, $validPages)) {
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-dark sidebar">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                 <i class="fas fa-box fa-lg me-2"></i>
+<<<<<<< HEAD
                 <span class="fs-4">Sistema Inventarios</span>
+=======
+                <span class="fs-4">SISTEMA DE INVENTARIOS</span>
+>>>>>>> 4f904dd39a07f5fff8372923ce40ccfdb613c314
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto">
@@ -88,7 +96,11 @@ if (!in_array($page, $validPages)) {
         <div class="content flex-grow-1 p-4">
             <!-- Header -->
             <header class="bg-primary text-white text-center py-3 mb-4">
+<<<<<<< HEAD
                 <h1>Menu de Incio</h1>
+=======
+                <h1>MARCO DE TRABAJO</h1>
+>>>>>>> 4f904dd39a07f5fff8372923ce40ccfdb613c314
             </header>
 
             <div class="container">
