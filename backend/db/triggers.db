@@ -1,0 +1,110 @@
+-- 1. Trigger to Update Stock After a Return
+-- This trigger updates the stock quantity when a return is inserted into the devoluciones table.
+CREATE TRIGGER update_stock_after_return
+AFTER INSERT ON devoluciones
+FOR EACH ROW
+BEGIN
+    UPDATE stock
+    SET cantidad = cantidad + (SELECT cantidad FROM devoluciones_articulos WHERE id_devolucion = NEW.id_devolucion)
+    WHERE id_producto = NEW.id_producto;
+END;
+
+-- 2. Trigger to Decrease Stock After a Sale
+-- Whenever a sale is made, the stock for the sold product should be reduced.
+CREATE TRIGGER update_stock_after_sale
+AFTER INSERT ON ventas
+FOR EACH ROW
+BEGIN
+    UPDATE stock
+    SET cantidad = cantidad - (SELECT cantidad FROM productos WHERE id_producto = NEW.id_producto)
+    WHERE id_producto = NEW.id_producto;
+END;
+
+-- 3. Trigger to Remove Returns When a Sale is Deleted
+-- If a sale is deleted from the ventas table, all associated returns should also be deleted.
+CREATE TRIGGER delete_returns_on_sale_removal
+AFTER DELETE ON ventas
+FOR EACH ROW
+BEGIN
+    DELETE FROM devoluciones
+    WHERE id_venta = OLD.id_venta;
+END;
+
+-- 4. Trigger to Update Stock After a Purchase
+-- When a new purchase is recorded in the compras table, the stock of the purchased product should increase.
+CREATE TRIGGER update_stock_after_purchase
+AFTER INSERT ON compras
+FOR EACH ROW
+BEGIN
+    UPDATE stock
+    SET cantidad = cantidad + NEW.cantidad
+    WHERE id_producto = NEW.id_producto;
+END;
+
+-- 5. Trigger to Prevent Sales or Returns with Insufficient Stock
+-- Before inserting a sale, this trigger checks if there is enough stock available for the product. If not, it raises an error.
+CREATE TRIGGER check_stock_before_sale
+BEFORE INSERT ON ventas
+FOR EACH ROW
+BEGIN
+    DECLARE current_stock INT;
+    
+    -- Get the current stock quantity
+    SELECT cantidad INTO current_stock
+    FROM stock
+    WHERE id_producto = NEW.id_producto;
+    
+    -- If the stock is insufficient, raise an error
+    IF current_stock < (SELECT cantidad FROM productos WHERE id_producto = NEW.id_producto) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Insufficient stock for the sale';
+    END IF;
+END;
+
+-- 6. Trigger to Update Order Status When All Returns Are Processed
+-- If orders can go through different states (Pending, Processed, Shipped), this trigger updates the status of an order to "Processed" once all returns related to that order have been completed.
+CREATE TRIGGER update_order_status_after_returns
+AFTER UPDATE ON devoluciones
+FOR EACH ROW
+BEGIN
+    DECLARE pending_returns INT;
+    
+    -- Count the pending returns for the order
+    SELECT COUNT(*) INTO pending_returns
+    FROM devoluciones
+    WHERE id_orden = NEW.id_orden AND monto_total IS NULL;
+    
+    -- If there are no pending returns, update the order's status
+    IF pending_returns = 0 THEN
+        UPDATE ordenes_recibidas
+        SET estado = 'Processed'
+        WHERE id_orden = NEW.id_orden;
+    END IF;
+END;
+
+-- 7. Trigger to Delete Orders if a Client is Deleted
+-- If a client is removed from the clientes table, this trigger deletes all orders associated with that client.
+CREATE TRIGGER delete_orders_on_client_removal
+AFTER DELETE ON clientes
+FOR EACH ROW
+BEGIN
+    DELETE FROM ordenes_recibidas
+    WHERE id_cliente = OLD.id_cliente;
+END;
+
+-- 8. Trigger to Calculate the Total of a Sale When a New Sale is Inserted
+-- If you aren’t calculating the total of the sale in your backend logic, this trigger can automatically calculate it based on the products sold and their prices.
+CREATE TRIGGER calculate_sale_total
+BEFORE INSERT ON ventas
+FOR EACH ROW
+BEGIN
+    DECLARE product_price DECIMAL(10,2);
+    
+    -- Fetch the price of the product
+    SELECT precio INTO product_price
+    FROM productos
+    WHERE id_producto = NEW.id_producto;
+    
+    -- Calculate the total of the sale
+    SET NEW.total = product_price * (SELECT cantidad FROM productos WHERE id_producto = NEW.id_producto);
+END;
