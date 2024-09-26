@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoginController } from './controllers/login.controller';
@@ -16,10 +16,25 @@ import { DevolutionController } from './controllers/devolution.controller';
 import { DevolutionService } from './services/devolution.service';
 import { SaleController } from './controllers/sale.controller';
 import { SaleService } from './services/sale.service';
+import { LoggerMiddleware } from 'middleware/logger.en.middleware';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [],
+  imports: [
+    JwtModule.register({
+      global: true,
+      secret: process.env.SECRETJWT,
+      signOptions: {expiresIn: '2h'},
+    })
+  ],
   controllers: [AppController, LoginController, SignupController, ShoppingController, ProviderControler, ProductController, ClientsController, DevolutionController, SaleController],
   providers: [AppService, AuthService, ShoppingService, ProviderService, ProductService, ClientService, DevolutionService, SaleService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+      consumer
+      .apply(LoggerMiddleware)
+      .exclude({path: "login", method: RequestMethod.ALL}, {path: "signup", method: RequestMethod.ALL})
+      .forRoutes("/")
+  }
+}

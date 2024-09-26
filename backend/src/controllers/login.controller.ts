@@ -11,7 +11,7 @@ export class LoginController{
     async loginUser(req: express.Request, res: express.Response){
         const {user, password} = req.body;
         if(await this.login.loginuser(user, password)){
-          res.status(200).json({user: user}); 
+          res.status(200).json({access: await this.login.jwtService.signAsync({user: user, pass: password})}); 
         }
         else{
             res.status(404).send("user not exist")

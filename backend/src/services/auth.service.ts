@@ -1,9 +1,11 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
 import { ConnectionDB } from "./connectDB.service";
 import * as bycript from "bcrypt"
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class AuthService extends ConnectionDB {
+    public jwtService: JwtService = new JwtService({secretOrPrivateKey: process.env.SECRETJWT});
     constructor() {
         super();
     }
