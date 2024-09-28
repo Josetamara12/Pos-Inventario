@@ -18,6 +18,8 @@ import { SaleController } from './controllers/sale.controller';
 import { SaleService } from './services/sale.service';
 import { LoggerMiddleware } from 'middleware/logger.en.middleware';
 import { JwtModule } from '@nestjs/jwt';
+import { OrdersController } from './controllers/orders.controller';
+import { OrdersService } from './services/orders.service';
 
 @Module({
   imports: [
@@ -27,8 +29,8 @@ import { JwtModule } from '@nestjs/jwt';
       signOptions: {expiresIn: '2h'},
     })
   ],
-  controllers: [AppController, LoginController, SignupController, ShoppingController, ProviderControler, ProductController, ClientsController, DevolutionController, SaleController],
-  providers: [AppService, AuthService, ShoppingService, ProviderService, ProductService, ClientService, DevolutionService, SaleService],
+  controllers: [AppController, LoginController, SignupController, ShoppingController, ProviderControler, ProductController, ClientsController, DevolutionController, SaleController, OrdersController],
+  providers: [AppService, AuthService, ShoppingService, ProviderService, ProductService, ClientService, DevolutionService, SaleService, OrdersService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
