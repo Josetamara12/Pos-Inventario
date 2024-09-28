@@ -5,7 +5,11 @@ import { ConnectionDB } from './connectDB.service';
 export class SaleService extends ConnectionDB {
     async getSalesByproduct(id_product: number){
         try{
-            const [result] = await this.connect.query(`SELECT * FROM ventas WHERE id_producto = ${id_product}`);
+            const [result] = await this.connect.query(`SELECT vt.*, pt.nombre as Nombre_producto, 
+                ct.nombre as Nombre_cliente, ct.correo as Correo_cliente FROM ventas vt 
+                INNER JOIN productos pt ON vt.id_producto = pt.id_producto
+                INNER JOIN clientes ct ON vt.id_cliente = ct.id_cliente
+                WHERE vt.id_producto = ${id_product}`);
             return {msg: result, code: HttpStatus.OK}
         }
         catch(err){

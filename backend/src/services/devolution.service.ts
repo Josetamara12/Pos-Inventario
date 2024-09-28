@@ -6,7 +6,11 @@ import { ConnectionDB } from "./connectDB.service";
 export class DevolutionService extends ConnectionDB{
     async getDevolutions(){
         try{
-            const [result] = await this.connect.query(`SELECT * FROM devoluciones`);
+            const [result] = await this.connect.query(`SELECT dv.*, pt.id_producto, pt.nombre as nombre_producto,
+                ct.id_cliente, ct.nombre as nombre_cliente, ct.correo, ord.total as total_orden FROM devoluciones dv
+                INNER JOIN productos pt ON dv.id_producto = pt.id_producto
+                INNER JOIN clientes ct ON dv.id_cliente = ct.id_cliente
+                INNER JOIN ordenes_recibidas ord ON dv.id_orden = ord.id_orden`);
 
             return {msg: result, code: HttpStatus.OK}
         }
@@ -17,7 +21,12 @@ export class DevolutionService extends ConnectionDB{
 
     async getDevolutionById(id: number){
         try{
-            const [result] = await this.connect.query(`SELECT * FROM devoluciones WHERE id_devolucion = ${id}`);
+            const [result] = await this.connect.query(`SELECT dv.*, pt.id_producto, pt.nombre as nombre_producto,
+                ct.id_cliente, ct.nombre as nombre_cliente, ct.correo, ord.total as total_orden FROM devoluciones dv
+                INNER JOIN productos pt ON dv.id_producto = pt.id_producto
+                INNER JOIN clientes ct ON dv.id_cliente = ct.id_cliente
+                INNER JOIN ordenes_recibidas ord ON dv.id_orden = ord.id_orden
+                WHERE id_devolucion = ${id}`);
 
             return {msg: result, code: HttpStatus.OK}
         }

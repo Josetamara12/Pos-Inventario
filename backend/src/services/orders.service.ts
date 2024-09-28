@@ -5,7 +5,11 @@ import { ConnectionDB } from './connectDB.service';
 export class OrdersService extends ConnectionDB {
     async getAllOrdersByIdproduct(id_product: number){
         try{
-            const [result] = await this.connect.query(`SELECT * FROM ordenes_recibidas WHERE id_producto = ${id_product}`);
+            const [result] = await this.connect.query(`SELECT ord.*, pt.nombre as nombre_producto, pt.precio,
+                us.nombre as nombre_usuario FROM ordenes_recibidas ord 
+                INNER JOIN productos pt ON ord.id_producto = pt.id_producto
+                INNER JOIN usuarios us ON ord.id_usuario = us.id_usuario
+                WHERE ord.id_producto = ${id_product}`);
 
             return {msg: result, code: HttpStatus.OK}
         }
@@ -16,7 +20,11 @@ export class OrdersService extends ConnectionDB {
 
     async getAllOrdersByIdprovider(id_provider: number){
         try{
-            const [result] = await this.connect.query(`SELECT * FROM ordenes_recibidas WHERE id_proveedor = ${id_provider}`);
+            const [result] = await this.connect.query(`SELECT ord.*, pv.nombre as nombre_proveedor,
+                pv.telefono as telefono_provedor, us.nombre as nombre_usuario FROM ordenes_recibidas ord
+                INNER JOIN proveedores pv ON ord.id_proveedor = pv.id_proveedor
+                INNER JOIN usuarios us ON ord.id_usuario = us.id_usuario
+                WHERE ord.id_proveedor = ${id_provider}`);
 
             return {msg: result, code: HttpStatus.OK}
         }

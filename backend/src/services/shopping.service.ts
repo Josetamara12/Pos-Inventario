@@ -10,7 +10,12 @@ export class ShoppingService extends ConnectionDB {
 
     async getAllShoppings() {
         try {
-            const [result]: Array<any> = await this.connect.query(`SELECT * FROM compras`);
+            const [result]: Array<any> = await this.connect.query(`SELECT cps.*, pt.nombre as Nombre_producto,
+                pt.precio as Precio_producto, pv.nombre as Nombre_proveedor, 
+                pv.telefono as Telefono_proveedor, us.nombre as Nombre_usuario, us.correo as Correo_usuario FROM compras cps
+                INNER JOIN productos pt ON cps.id_producto = pt.id_producto
+                INNER JOIN proveedores pv ON cps.id_proveedor = pv.id_proveedor
+                INNER JOIN usuarios us ON cps.id_usuario = us.id_usuario`);
 
             return { status: 200, msg: result };
         }
