@@ -20,6 +20,7 @@ import { LoggerMiddleware } from 'middleware/logger.en.middleware';
 import { JwtModule } from '@nestjs/jwt';
 import { OrdersController } from './controllers/orders.controller';
 import { OrdersService } from './services/orders.service';
+import { WebsocketModule } from './services/messages/websocket.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { OrdersService } from './services/orders.service';
       global: true,
       secret: process.env.SECRETJWT,
       signOptions: {expiresIn: '2h'},
-    })
+    }),
+    WebsocketModule
   ],
   controllers: [AppController, LoginController, SignupController, ShoppingController, ProviderControler, ProductController, ClientsController, DevolutionController, SaleController, OrdersController],
   providers: [AppService, AuthService, ShoppingService, ProviderService, ProductService, ClientService, DevolutionService, SaleService, OrdersService],
